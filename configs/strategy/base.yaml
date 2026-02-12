@@ -1,0 +1,7 @@
+type: full_finetune
+freeze_backbone: false
+target_modules: []
+rank: 0
+alpha: 1.0
+dropout: 0.0
+allow_missing_targets: false

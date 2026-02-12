@@ -1,0 +1,26 @@
+defaults:
+  - base
+  - _self_
+name: domain_adaptation
+mode: unpaired
+patch:
+  enabled: true
+  size: 64
+  random: true
+  seed_per_sample: true
+degradation:
+  enabled: false
+  clamp_output: true
+  seed: ${..seed}
+  blur:
+    enabled: false
+    probability: 0.0
+  resize:
+    enabled: false
+    probability: 0.0
+  noise:
+    enabled: false
+    probability: 0.0
+  jpeg:
+    enabled: false
+    probability: 0.0

@@ -1,0 +1,33 @@
+crop_border: 0
+stages: [val, test]
+
+psnr:
+  enabled: true
+  data_range: 1.0
+
+ssim:
+  enabled: true
+  data_range: 1.0
+
+lpips:
+  enabled: true
+  net_type: alex
+  normalize: true
+
+reporting:
+  filename: metrics.csv
+
+visual_qa:
+  enabled: true
+  max_samples: 8
+  crop_padding: 4
+  crop_border_width: 2
+  crop_border_color: [255, 64, 64]
+  panel_labels: [LR, Baseline, Adaptation, HR]
+  regions:
+    - name: center
+      x: 0.375
+      y: 0.375
+      width: 0.25
+      height: 0.25
+      relative: true

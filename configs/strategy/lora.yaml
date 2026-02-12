@@ -1,0 +1,7 @@
+type: lora
+freeze_backbone: true
+target_modules: []
+rank: 8
+alpha: 16.0
+dropout: 0.05
+allow_missing_targets: false

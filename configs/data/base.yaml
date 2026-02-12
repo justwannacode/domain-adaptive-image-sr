@@ -1,0 +1,78 @@
+name: synthetic_sr
+mode: synthetic
+scale: 4
+batch_size: 4
+num_workers: 4
+pin_memory: false
+persistent_workers: false
+seed: null
+extensions: [.png, .jpg, .jpeg, .bmp, .tif, .tiff, .webp, .dcm]
+recursive: true
+image_mode: rgb
+
+dataloader:
+  collate_fn: super_resolution
+  train:
+    shuffle: true
+    drop_last: false
+  val:
+    shuffle: false
+    drop_last: false
+  test:
+    shuffle: false
+    drop_last: false
+  predict:
+    shuffle: false
+    drop_last: false
+
+patch:
+  enabled: true
+  size: 256
+  random: true
+  seed_per_sample: true
+
+train:
+  lr_dir: null
+  hr_dir: null
+  lq_dir: null
+
+val:
+  lr_dir: null
+  hr_dir: null
+  lq_dir: null
+
+test:
+  lr_dir: null
+  hr_dir: null
+  lq_dir: null
+
+degradation:
+  enabled: true
+  clamp_output: true
+  seed: ${..seed}
+
+  blur:
+    enabled: true
+    probability: 1.0
+    kernel_size: 7
+    sigma_range: [0.2, 2.0]
+
+  resize:
+    enabled: true
+    probability: 1.0
+    scale_factor: ${...scale}
+    interpolation: bicubic
+    antialias: true
+
+  noise:
+    enabled: true
+    probability: 1.0
+    type: gaussian
+    sigma_range: [0.0039215686, 0.0588235294]
+
+  jpeg:
+    enabled: true
+    probability: 1.0
+    quality_range: [30, 95]
+    block_size: 8
+    blockiness: 0.35

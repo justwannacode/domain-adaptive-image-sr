@@ -1,0 +1,31 @@
+name: swinir
+target: domain_adaptive_image_sr.models.archs.swinir.SwinIR
+implementation: upstream
+upstream_source: https://github.com/JingyunLiang/SwinIR/blob/main/models/network_swinir.py
+upstream_version: v0.0
+upstream_commit: null
+weights_path: weights/swinir/003_realSR_BSRGAN_DFO_s64w8_SwinIR-M_x4_GAN.pth
+strict_load: true
+scale: ${data.scale}
+img_size: 64
+patch_size: 1
+in_chans: 3
+out_chans: ${model.in_chans}
+window_size: 8
+img_range: 1.0
+depths: [6, 6, 6, 6, 6, 6]
+embed_dim: 180
+num_heads: [6, 6, 6, 6, 6, 6]
+mlp_ratio: 2.0
+upsampler: pixelshuffle
+resi_connection: 1conv
+qkv_bias: true
+qk_scale: null
+drop_rate: 0.0
+attn_drop_rate: 0.0
+drop_path_rate: 0.0
+ape: false
+patch_norm: true
+use_checkpoint: false
+lora_target_modules:
+  - attn.qkv

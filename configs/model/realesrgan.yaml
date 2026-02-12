@@ -1,0 +1,31 @@
+name: realesrgan
+target: domain_adaptive_image_sr.models.archs.realesrgan.RealESRGANGenerator
+implementation: upstream
+upstream_source: https://github.com/xinntao/BasicSR/blob/master/basicsr/archs/rrdbnet_arch.py
+upstream_version: basicsr==1.4.2
+upstream_commit: null
+weights_path: weights/realesrgan/RealESRNet_x4plus.pth
+strict_load: true
+scale: ${data.scale}
+in_chans: 3
+out_chans: ${model.in_chans}
+num_feat: 64
+num_block: 23
+num_grow_ch: 32
+img_range: 1.0
+body_res_scale: 1.0
+block_res_scale: 0.2
+upsample_mode: nearest
+leaky_relu_negative_slope: 0.2
+lora_target_modules:
+  - conv1
+  - conv2
+  - conv_hr
+  - conv_last
+finetune_target_modules:
+  - body
+  - conv_body
+  - conv_up1
+  - conv_up2
+  - conv_hr
+  - conv_last

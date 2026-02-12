@@ -1,0 +1,12 @@
+type: partial_finetune
+freeze_backbone: true
+target_modules:
+  - "conv_last"
+  - "upsample"
+  - "conv_before_upsample"
+  - "conv_after_body"
+  - "layers.5"
+rank: 0
+alpha: 1.0
+dropout: 0.0
+allow_missing_targets: false

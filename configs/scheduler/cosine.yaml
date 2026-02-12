@@ -1,0 +1,8 @@
+name: cosine
+enabled: true
+target: torch.optim.lr_scheduler.CosineAnnealingLR
+T_max: ${trainer.max_epochs}
+eta_min: 0.000001
+last_epoch: -1
+interval: epoch
+frequency: 1

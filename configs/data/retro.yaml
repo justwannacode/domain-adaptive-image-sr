@@ -1,0 +1,60 @@
+defaults:
+  - base
+  - _self_
+name: retro
+image_mode: rgb
+
+degradation:
+  blur:
+    enabled: false
+    probability: 0.0
+
+  resize:
+    enabled: true
+    probability: 1.0
+    interpolation: bicubic
+    antialias: true
+
+  noise:
+    enabled: false
+    probability: 0.0
+    type: gaussian
+    sigma_range: [0.0, 0.0]
+
+  jpeg:
+    enabled: true
+    probability: 0.55
+    quality_range: [55, 94]
+    block_size: 8
+    blockiness: 0.12
+
+  optics:
+    enabled: true
+    probability: 0.7
+    modes: [anisotropic_gaussian, motion]
+    anisotropic_gaussian:
+      kernel_size: 7
+      sigma_x_range: [0.25, 0.8]
+      sigma_y_range: [0.15, 0.45]
+    motion:
+      kernel_size_range: [3, 5]
+      strength_range: [0.04, 0.18]
+
+  chromatic_aberration:
+    enabled: true
+    probability: 0.18
+    shift_range: [1, 1]
+    strength_range: [0.04, 0.12]
+
+  color_shift:
+    enabled: true
+    probability: 0.75
+    brightness_range: [0.96, 1.06]
+    contrast_range: [0.9, 1.08]
+    saturation_range: [0.82, 1.05]
+    white_balance_range: [0.94, 1.06]
+
+  digitization_noise:
+    enabled: true
+    probability: 0.8
+    peak_range: [80.0, 300.0]

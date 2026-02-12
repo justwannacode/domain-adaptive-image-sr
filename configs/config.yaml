@@ -1,0 +1,25 @@
+
+defaults:
+  - data: base
+  - model: swinir
+  - strategy: base
+  - callbacks: base
+  - experiment: base
+  - trainer: base
+  - optimizer: adam
+  - loss: pixel
+  - metrics: base
+  - scheduler: cosine
+  - _self_
+
+project:
+  name: domain_adaptive_image_sr
+  task: super_resolution
+
+seed: 42
+output_dir: outputs/${experiment.name}
+
+hydra:
+  run:
+    dir: ${output_dir}
+  output_subdir: .hydra

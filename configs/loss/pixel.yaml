@@ -1,0 +1,5 @@
+name: pixel
+type: l1
+weight: 1.0
+reduction: mean
+charbonnier_eps: 0.000001

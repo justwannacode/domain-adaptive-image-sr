@@ -1,0 +1,4 @@
+name: baseline
+description: Baseline synthetic SR experiment
+tags: [baseline, swinir]
+stage: fit
