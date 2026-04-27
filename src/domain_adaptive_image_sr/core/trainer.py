@@ -153,6 +153,33 @@ class SuperResolutionLightningModule(L.LightningModule):
         self.evaluator.reset("test")
         self.visual_qa_samples["test"].clear()
 
+    def on_load_checkpoint(self, checkpoint: dict[str, Any]) -> None:
+        """Adapt channel dimensions if loading 3-channel weights into 1-channel models."""
+
+        state_dict = checkpoint.get("state_dict", {})
+        current_state = self.state_dict()
+
+        first_weight = "model.backbone.conv_first.weight"
+        if first_weight in state_dict and first_weight in current_state:
+            pt_w = state_dict[first_weight]
+            tgt_w = current_state[first_weight]
+            if pt_w.shape[1] == 3 and tgt_w.shape[1] == 1:
+                state_dict[first_weight] = pt_w.sum(dim=1, keepdim=True)
+
+        last_weight = "model.backbone.conv_last.weight"
+        if last_weight in state_dict and last_weight in current_state:
+            pt_w = state_dict[last_weight]
+            tgt_w = current_state[last_weight]
+            if pt_w.shape[0] == 3 and tgt_w.shape[0] == 1:
+                state_dict[last_weight] = pt_w.mean(dim=0, keepdim=True)
+
+        last_bias = "model.backbone.conv_last.bias"
+        if last_bias in state_dict and last_bias in current_state:
+            pt_b = state_dict[last_bias]
+            tgt_b = current_state[last_bias]
+            if pt_b.shape[0] == 3 and tgt_b.shape[0] == 1:
+                state_dict[last_bias] = pt_b.mean(dim=0, keepdim=True)
+
     def on_validation_epoch_end(self) -> None:
         """Log and export validation metrics."""
 
